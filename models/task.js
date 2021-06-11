@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   Task.init({
     title: DataTypes.STRING,
-    category: DataTypes.ENUM,
+    category: DataTypes.ENUM("backlog", "todo", "doing", "done"),
     user_id: DataTypes.INTEGER
   }, {
     sequelize,
