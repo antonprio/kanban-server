@@ -1,4 +1,5 @@
 const CustomError = require('../middlewares/error_handler')
+const ResponseHelper = require('../helpers/response_helper')
 const { User } = require('../models')
 const { comparePassword } = require('../helpers/bcrypt')
 const { encodePayload } = require('../helpers/jwt')
@@ -13,15 +14,13 @@ class UserController {
             const newUser = await User.create({
                 email, password, full_name, img_url
             })
-            
-            return res.status(201).json({
-                status: "Success create user",
-                data: {
-                    id: newUser.id,
-                    email: newUser.email,
-                    full_name: newUser.full_name
-                }
+            const response = new ResponseHelper('Success create user', {
+                id: newUser.id,
+                email: newUser.email,
+                full_name: newUser.full_name
             })
+            
+            return res.status(201).json(response)
         } catch (error) {
             next(error)
         }
@@ -40,15 +39,13 @@ class UserController {
 
             if (!checkPassword) throw new CustomError('Unauthorized', 'Invalid username or password')
 
-            const token = encodePayload({
+            const access_token = encodePayload({
                 id: user.id,
                 email: user.email
             })
+            const response = new ResponseHelper('success', { access_token })
 
-            return res.status(200).json({
-                status: "success",
-                access_token: token
-            })
+            return res.status(200).json(response)
         } catch (error) {
             next(error)
         }
