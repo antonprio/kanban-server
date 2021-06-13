@@ -126,7 +126,8 @@
 ```json
 {
     "title": "My first task!",
-    "category": "backlog"
+    "category": "backlog",
+    "task_detail": "Update coding on production"
 }
 ```
 #### Response Success Status : `201`
@@ -138,6 +139,7 @@
         "title": "My first task!",
         "category": "backlog",
         "user_id": 6,
+        "task_detail": "Update coding on production",
         "updatedAt": "2021-06-12T11:09:31.251Z",
         "createdAt": "2021-06-12T11:09:31.251Z"
     }
@@ -222,7 +224,8 @@
 ```json
 {
     "title": "My First Task",
-    "category": "doing"
+    "category": "doing",
+    "task_detail": "selesai mengerjakan update"
 }
 ```
 #### Response Success Status : `200`
@@ -234,7 +237,8 @@
             "id": 1,
             "title": "My First Task",
             "category": "doing",
-            "user_id": 6,
+            "user_id": 6,,
+            "task_detail": "selesai mengerjakan update",
             "createdAt": "2021-06-12T11:09:31.251Z",
             "updatedAt": "2021-06-12T12:03:19.845Z"
         }

@@ -24,10 +24,10 @@ class TaskController {
 
     static async createTask(req, res, next) {
         try {
-            const { title, category } = req.body
+            const { title, category, task_detail } = req.body
             const user_id = req.currentUser.id
             const newTask = await Task.create({
-                title, category, user_id
+                title, category, user_id, task_detail
             })
             let response = null
             
@@ -64,9 +64,9 @@ class TaskController {
         try {
             let response = null
             const taskId = req.params.id
-            const { title, category } = req.body
+            const { title, category, task_detail } = req.body
             const task = await Task.update({
-                title, category
+                title, category, task_detail
             }, {
                 where: { id: taskId },
                 returning: true

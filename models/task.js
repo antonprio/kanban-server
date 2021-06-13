@@ -47,7 +47,8 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'user_id cannot be empty'
         }
       }
-    }
+    },
+    task_detail: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Task',
