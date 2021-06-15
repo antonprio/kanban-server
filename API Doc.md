@@ -5,6 +5,7 @@
 | ----------- | ------------------- | ------------------ |
 | **POST**    | /api/users/register | Register User Baru |
 | **POST**    | /api/users/login    | Login User |
+| **POST**    | /api/users/google-login | Login User dengan google authentication |
 | **POST**    | /api/tasks          | Membuat task baru |
 | **DELETE** | /api/tasks/:id | Menghapus todo berdasarkan `id` |
 | **PUT** | /api/tasks/:id | Mengupdate seluruh field task berdasarkan `id` |
@@ -90,7 +91,9 @@
 ```json
 {
     "message": "success",
-    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhbnRvbkBtYWlsLmNvbSIsImlhdCI6MTYyMzQ4NjU3N30.NESgkMaxMJq6R3b4-NLud-kSS-yPaOFlXX5Gi0fqsLQ"
+    "data": {
+        "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbnRvbkBtYWlsLmNvbSIsImlhdCI6MTYyMzc1NzAwNn0.dJ4HBb54ZTg_RzuQF3r5SLKqtsU7dzjzuWEeW4_HmVM"
+    }
 }
 ```
 #### Response Error Status : `401`
@@ -100,6 +103,40 @@
     "error": {
         "name": "Unauthorized",
         "message": "Invalid username or password"
+    }
+}
+```
+#### Response Error Status : `500`
+```json
+{
+    "message": "error",
+    "error": {
+        "name": "UncaughtException",
+        "message": "Internal Server Error"
+    }
+}
+```
+---
+## Login User dengan google authentication
+- HTTP Method : `POST`
+- URL : `/api/users/google-login`
+- Request Body : `json`
+- Request Params : *none*
+- Request Headers : *none*
+- Response : `json`
+
+#### Request Body Example
+```json
+{
+    "google_token": "Your token from google"
+}
+```
+#### Response Success Status : `200`
+```json
+{
+    "message": "success",
+    "data": {
+        "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbnRvbkBtYWlsLmNvbSIsImlhdCI6MTYyMzc1NzAwNn0.dJ4HBb54ZTg_RzuQF3r5SLKqtsU7dzjzuWEeW4_HmVM"
     }
 }
 ```
