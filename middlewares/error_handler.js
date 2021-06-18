@@ -11,7 +11,8 @@ class CustomError extends Error {
         let status
         let { name, message } = err
         switch (name) {
-            case "SequelizeValidationError":
+            case "SequelizeValidationError":                
+                message = err.errors[0].message
                 status = 400
                 break
             case "SequelizeUniqueConstraintError":

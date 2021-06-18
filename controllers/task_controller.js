@@ -1,6 +1,6 @@
 const ResponseHelper = require('../helpers/response_helper')
-const { response } = require('express')
-const { Task } = require('../models')
+const CustomError = require('../middlewares/error_handler')
+const { Task, User } = require('../models')
 
 class TaskController {
     static async getTasks(req, res, next) {
@@ -8,12 +8,23 @@ class TaskController {
             let tasks = null
             
             if (req.params.id) {
-                tasks = await Task.findByPk(req.params.id)
+                tasks = await Task.findByPk(req.params.id, {
+                    include: {
+                        model: User,
+                        attributes: ['id', 'email', 'full_name', 'img_url']
+                    }
+                })                
             } else {
                 tasks = await Task.findAll({
-                    order: [['id', 'asc']]
+                    order: [['id', 'asc']],
+                    include: {
+                        model: User,
+                        attributes: ['id', 'email', 'full_name', 'img_url']
+                    }
                 })
             }
+            if (!tasks) throw new CustomError('NotFound', 'Task not found')
+
             const response = new ResponseHelper('success', tasks)
             
             return res.status(200).json(response)

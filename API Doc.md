@@ -7,6 +7,8 @@
 | **POST**    | /api/users/login    | Login User |
 | **POST**    | /api/users/google-login | Login User dengan google authentication |
 | **POST**    | /api/tasks          | Membuat task baru |
+| **GET** | /api/tasks | Mendaptkan seluruh task
+| **GET** | /api/tasks/:id | Mendaptkan task berdasarkan `id` |
 | **DELETE** | /api/tasks/:id | Menghapus todo berdasarkan `id` |
 | **PUT** | /api/tasks/:id | Mengupdate seluruh field task berdasarkan `id` |
 | **PATCH** | /api/tasks/:id | Mengupdate field category task berdasarkan `id` |
@@ -202,6 +204,114 @@
     }
 }
 ```
+---
+## Mendaptkan seluruh task
+- HTTP Method : `GET`
+- URL : `/api/tasks`
+- Request Body : *none*
+- Request Params : *none*
+- Request Headers : `access_token`
+- Response : `json`
+
+#### Response Success Status : `200`
+```json
+{
+    "message": "success",
+    "data": [
+        {
+            "id": 1,
+            "title": "My first tasks",
+            "category": "backlog",
+            "user_id": 2,
+            "task_detail": "Enhancement backend for kanban server",
+            "createdAt": "2021-06-18T11:57:31.060Z",
+            "updatedAt": "2021-06-18T11:59:58.911Z",
+            "User": {
+                "id": 2,
+                "email": "anton@mail.com",
+                "full_name": "Anton Prio",
+                "img_url": "https://ui-avatars.com/api/?name=Anton+Prio"
+            }
+        },
+        {
+            "id": 2,
+            "title": "My second tasks",
+            "category": "backlog",
+            "user_id": 2,
+            "task_detail": "Enhancement response for get task backend",
+            "createdAt": "2021-06-18T12:00:42.273Z",
+            "updatedAt": "2021-06-18T12:00:42.273Z",
+            "User": {
+                "id": 2,
+                "email": "anton@mail.com",
+                "full_name": "Anton Prio",
+                "img_url": "https://ui-avatars.com/api/?name=Anton+Prio"
+            }
+        }
+    ]
+}
+```
+#### Response Error Status : `500`
+```json
+{
+    "message": "error",
+    "error": {
+        "name": "UncaughtException",
+        "message": "Internal Server Error"
+    }
+}
+```
+---
+## Mendaptkan task berdasrkan `id`
+- HTTP Method : `GET`
+- URL : `/api/tasks/:id`
+- Request Body : *none*
+- Request Params : `id`
+- Request Headers : `access_token`
+- Response : `json`
+
+#### Response Success Status : `200`
+```json
+{
+    "message": "success",
+    "data": {
+        "id": 1,
+        "title": "My first tasks",
+        "category": "backlog",
+        "user_id": 2,
+        "task_detail": "Enhancement backend for kanban server",
+        "createdAt": "2021-06-18T11:57:31.060Z",
+        "updatedAt": "2021-06-18T11:59:58.911Z",
+        "User": {
+            "id": 2,
+            "email": "anton@mail.com",
+            "full_name": "Anton Prio",
+            "img_url": "https://ui-avatars.com/api/?name=Anton+Prio"
+        }
+    }
+}
+```
+#### Response Error Status : `404`
+```json
+{
+    "message": "error",
+    "error": {
+        "name": "NotFound",
+        "message": "Task not found"
+    }
+}
+```
+#### Response Error Status : `500`
+```json
+{
+    "message": "error",
+    "error": {
+        "name": "UncaughtException",
+        "message": "Internal Server Error"
+    }
+}
+```
+
 ---
 ## Menghapus todo berdasarkan id
 - HTTP Method : `DELETE`
