@@ -4,7 +4,8 @@
   "description": "kaban-server",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "setup:test": "set NODE_ENV=test&&sequelize-cli db:drop&&sequelize-cli db:create&&sequelize-cli db:migrate",
+    "test": "set NODE_ENV=test&&jest --runInBand --forceExit --detectOpenHandles",
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
@@ -29,5 +30,9 @@
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.6.0",
     "sequelize": "^6.6.2"
+  },
+  "devDependencies": {
+    "jest": "^27.0.5",
+    "supertest": "^6.1.3"
   }
 }

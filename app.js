@@ -20,6 +20,10 @@ app.use('/api', router)
 
 app.use(errorHandler.generate)
 
-app.listen(PORT, () => {
-    console.log(`Kanban server running on port ${PORT}`);
-})
+if (process.env.NODE_ENV !== 'test') {
+    app.listen(PORT, () => {
+        console.log(`Kanban server running on port ${PORT}`);
+    })
+}
+
+module.exports = app
